@@ -1,0 +1,97 @@
+datasource db {
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+//Tells Prisma which database to use
+
+model User {
+  id        Int     @id @default(autoincrement())
+  username  String  @unique
+  password  String?
+  email     String? @unique
+  role      Role    @default(USER)  
+
+  requests  AssetRequest[]
+}
+
+model Asset {
+  id          Int           @id @default(autoincrement())
+  name        String
+  code        String        @unique
+  type        String
+  location    String
+  status      AssetStatus   @default(ACTIVE)  
+  value       Int
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  requests    AssetRequest[]
+}
+model AssetRequest {
+  id         Int      @id @default(autoincrement())
+  title      String   // <-- add this
+  message    String?
+  userId     Int
+  assetId    Int?
+  assignedTo Int?
+  status     String   @default("PENDING")
+  requestType RequestType   
+  createdAt  DateTime @default(now())
+  
+  user       User     @relation(fields: [userId], references: [id])
+  asset      Asset?   @relation(fields: [assetId], references: [id])
+}
+
+
+model Maintenance {
+  id              Int       @id @default(autoincrement())
+  assetId         Int
+  description     String
+  lastMaintenance DateTime
+  nextMaintenance DateTime
+  status          String
+}
+
+model Notification {
+  id        Int       @id @default(autoincrement())
+  title     String
+  message   String
+  actionUrl String?
+  seen      Boolean   @default(false)
+  createdAt DateTime  @default(now())
+}
+
+model AssetType {
+  id    Int    @id @default(autoincrement())
+  name  String
+}
+
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum AssetStatus {
+  ACTIVE
+  ASSIGNED
+  REPAIR
+  RETURN
+  REQUESTED
+  
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum RequestType {
+  CHECKOUT
+  RETURN
+}

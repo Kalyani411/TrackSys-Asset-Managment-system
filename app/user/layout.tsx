@@ -1,0 +1,23 @@
+
+import User_Sidebar from "@/components/user_sidebar/page";
+
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="min-h-screen flex flex-col">
+     
+
+      <div className="flex flex-1">
+        <User_Sidebar />
+        
+        <main className="flex-1 p-6 bg-gray-100">{children}</main>
+      </div>
+
+      
+    </div>
+  );
+}
