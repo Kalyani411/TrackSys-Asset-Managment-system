@@ -17,7 +17,7 @@ export async function GET(
     const assets = await prisma.asset.groupBy({
       by: ["name", "location", "type"],
       where: {
-        type: typeName,        // 🔥 NOW FILTER APPLIED
+        type: typeName,        
         status: "ACTIVE",
       },
       _count: {
@@ -25,7 +25,7 @@ export async function GET(
       },
     });
 
-    console.log("GROUPED ASSETS >>>", assets);
+ 
 
     return NextResponse.json(assets);
   } catch (error) {

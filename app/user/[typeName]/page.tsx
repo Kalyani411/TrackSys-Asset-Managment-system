@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import CheckoutButton from "@/components/checkoutbutton/page";
+import CheckoutButton from "@/components/ui/checkoutButton";
 
 interface GroupedAsset {
   id:number;

@@ -1,7 +1,7 @@
 
 
 import { headers } from "next/headers";
-import RequestActions from "@/components/requestaction/page";
+import RequestActions from "@/components/Request/requestAction";
 export type RequestStatus = "PENDING" | "APPROVED" | "REJECTED";
 export type Request = {
   id: number;

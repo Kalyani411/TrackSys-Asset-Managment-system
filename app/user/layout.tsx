@@ -1,5 +1,5 @@
 
-import User_Sidebar from "@/components/user_sidebar/page";
+import User_Sidebar from "@/components/layout/userSidebar";
 
 
 export default function AdminLayout({

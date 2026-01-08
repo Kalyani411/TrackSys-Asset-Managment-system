@@ -1,9 +1,9 @@
-import { prisma } from "@/lib/prisma";
-import AssetForm from "@/components/AssetForm/page";
+import AssetForm from "@/components/ui/assetForm";
 import { saveAsset } from "@/app/actions/saveasset";
+import { getAssetById } from "@/app/actions/getasset";
 import { AssetStatus } from "@prisma/client";
 import { AssetFormType } from "@/types/type";
-
+import { notFound } from "next/navigation";
 
 export default async function AssetDetail({
   params,
@@ -12,6 +12,8 @@ export default async function AssetDetail({
 }) {
   const { id } = await params;
   const assetId = Number(id);
+
+  if (Number.isNaN(assetId)) notFound();
 
   let defaultValues: AssetFormType;
 
@@ -25,19 +27,16 @@ export default async function AssetDetail({
       value: 0,
     };
   } else {
-    const asset = await prisma.asset.findUnique({
-      where: { id: assetId },
-    });
-
-    if (!asset) throw new Error("Asset not found");
+    const asset = await getAssetById(assetId);
+    if (!asset) notFound();
 
     defaultValues = {
-      name: asset.name,
-      code: asset.code,
-      type: asset.type,
-      location: asset.location,
-      status: asset.status,
-      value: asset.value,
+      name: asset.name ?? "",
+      code: asset.code ?? "",
+      type: asset.type ?? "",
+      location: asset.location ?? "",
+      status: asset.status ?? AssetStatus.ACTIVE,
+      value: asset.value ?? 0,
     };
   }
 

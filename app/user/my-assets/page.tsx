@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { Search } from "lucide-react";
 import Link from "next/link";
-import RequestReturnButton from "@/components/returnrequest/page";
+import RequestReturnButton from "@/components/Request/returnRequest";
 
 type Asset = {
   id: number;

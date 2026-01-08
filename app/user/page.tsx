@@ -3,7 +3,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { headers } from "next/headers";
-import Categorycard from "@/components/categorycards/page";
+import Categorycard from "@/components/ui/categoryCards";
   export const fetchData = async () => {
 
     const headerList = await headers();

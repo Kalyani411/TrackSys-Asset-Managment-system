@@ -1,5 +1,5 @@
 
-import Sidebar from "@/components/sidebar/page";
+import Sidebar from "@/components/layout/page";
 
 
 export default function AdminLayout({
